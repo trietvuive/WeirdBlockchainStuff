@@ -80,7 +80,7 @@ export default function App() {
         </div>
 
         <div className="bio">
-        hi.
+        Wave at me with your Ethereum wallet! (I won't take your money, i swear. Also use fake money plz)
         </div>
 
         <button className="waveButton" onClick={wave}>
