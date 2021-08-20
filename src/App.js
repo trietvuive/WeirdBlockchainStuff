@@ -86,7 +86,7 @@ export default function App() {
                 message: wave.message
             })
         })
-        wavesCleaned.sort(function (a, b) { return a.timestamp > b.timestamp });
+        wavesCleaned.sort(function (a, b) { return a.timestamp < b.timestamp });
         setAllWaves(wavesCleaned)
     }
 
