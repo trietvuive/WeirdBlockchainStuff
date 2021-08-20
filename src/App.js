@@ -81,7 +81,7 @@ export default function App() {
         let wavesCleaned = []
         waves.forEach(wave => {
             wavesCleaned.push({
-                address: wave.address,
+                address: wave.waver,
                 timestamp: new Date(wave.timestamp * 1000),
                 message: wave.message
             })
