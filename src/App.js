@@ -10,6 +10,7 @@ export default function App() {
   const [progress, setProgress] = React.useState(0);
   const [waveState,setWaveState] = React.useState("Not waved =(");
   const [currAccount, setCurrentAccount] = React.useState("");
+  const [allWaves, setAllWaves] = React.useState([])
   const contractAddress = "0xa511674242742650880fF8a638aFF5DE66cd54d7";
   const contractABI = abi.abi;
   const checkIfWalletIsConnected = () =>
@@ -30,7 +31,7 @@ export default function App() {
         const account = accounts[0];
         console.log("Found one!", account)
         setCurrentAccount(account);
-	getAllWaves()
+        getAllWaves()
       } else {
         console.log("No account found")
       }
@@ -74,7 +75,6 @@ export default function App() {
     console.log("Total count...",count.toNumber());
   }
 
-  const [allWaves, setAllWaves] = React.useState([])
   async function getAllWaves()
   {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -88,11 +88,22 @@ export default function App() {
       wavesCleaned.push({
         address: wave.waver,
         timestamp: new Date(wave.timestamp* 1000),
-        message: wave.message
+        message: wave.message,
+        color: wave.waver == 0xc309c5b0916bc44A0B12113ada3CdC79Db5f4215 ? 1 : 0
       })
     })
     wavesCleaned.sort(function(a,b){return a.timestamp < b.timestamp});
     setAllWaves(wavesCleaned)
+
+    wavePortalContract.on("NewWave", (from, time, msg) => {
+      console.log("NewWave", from, time, msg)
+      setAllWaves(oldArray => [{
+        address: from,
+        timestamp: new Date(time * 1000),
+        message: msg,
+        color: 2
+      },...oldArray])
+    })
   }
   
   return (
@@ -141,7 +152,8 @@ export default function App() {
         {allWaves.map((wave,index) =>
         {
           return (
-            <div style={{backgroundColor: "White", marginTop: "16px", padding: "8px"}}>
+            <div style={{backgroundColor: wave.color == 0 ? "Aquamarine" : wave.color == 1 ? "AliceBlue" : "Salmon", 
+            marginTop: "16px", padding: "8px"}}>
               <div>Address: {wave.address}</div>
               <div>Time: {wave.timestamp.toString()}</div>
               <div>Message: {wave.message}</div>
