@@ -30,6 +30,7 @@ export default function App() {
         const account = accounts[0];
         console.log("Found one!", account)
         setCurrentAccount(account);
+	getAllWaves()
       } else {
         console.log("No account found")
       }
@@ -45,7 +46,6 @@ export default function App() {
     .then(accounts => {
       console.log("Connected", accounts[0])
       setCurrentAccount(accounts[0])
-      getAllWaves()
     })
     .catch(err => console.log(err));
   }
@@ -91,7 +91,7 @@ export default function App() {
         message: wave.message
       })
     })
-    wavesCleaned.sort(function(a,b){return a.timestamp > b.timestamp});
+    wavesCleaned.sort(function(a,b){return a.timestamp < b.timestamp});
     setAllWaves(wavesCleaned)
   }
   
