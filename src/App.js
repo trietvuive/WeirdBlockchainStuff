@@ -3,6 +3,7 @@ import LoadingBar from 'react-top-loading-bar'
 import { ethers } from "ethers";
 import './App.css';
 import abi from "./utils/WavePortal.json"
+import logo from "./assets/ayaya-yeah.gif"
 
 export default function App() {
   const [blockMessage, setBlockMessage] = React.useState("...*cricket noise*");
@@ -102,7 +103,7 @@ export default function App() {
         <div className="header">
         👋 Hey there!
         </div>
-
+        <img src={logo} alt="loading..." />
         <div className="bio">
         Wave at me with your Ethereum wallet! (I won't take your money, i swear. Also use fake money plz)
         </div>
